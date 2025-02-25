@@ -103,3 +103,9 @@ export const getDevice = async (req, res, next) => {
 //     res.status(400).send(error.message);
 //   }
 // };
+
+module.exports = {
+  createDevice,
+  getDevice,
+  getDevices,
+};

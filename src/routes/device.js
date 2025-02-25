@@ -1,10 +1,10 @@
 import express from "express";
 
-import {
+const {
   createDevice,
   getDevice,
   getDevices,
-} from "../controllers/deviceController.js";
+} = require("../controllers/deviceController.js");
 
 const router = express.Router();
 
