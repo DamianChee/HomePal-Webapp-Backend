@@ -1,4 +1,5 @@
 import { firebaseApp } from "../config/firebase.js";
+import { getFirestore } from "firebase/firestore";
 import Device from "../models/deviceModel.js";
 import {
   collection,
