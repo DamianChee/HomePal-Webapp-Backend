@@ -18,16 +18,6 @@ try {
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
   };
 
-  const firebaseConfig = {
-    apiKey: process.env.FIREBASE_apiKey,
-    authDomain: process.env.FIREBASE_authDomain,
-    projectId: process.env.FIREBASE_projectId,
-    storageBucket: process.env.FIREBASE_storageBucket,
-    messagingSenderId: process.env.FIREBASE_messagingSenderId,
-    appId: process.env.FIREBASE_appId,
-    measurementId: process.env.FIREBASE_measurementId,
-  };
-
   // Initialize Firebase Admin SDK
   firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(serviceAccount),
@@ -55,7 +45,6 @@ try {
 
   // Export admin instance
   module.exports.firebaseAdmin = firebaseAdmin;
-  module.exports.firebaseApp = app;
 } catch (error) {
   console.error("[FIREBASE] Initialization failed:", error.message);
   throw error;
