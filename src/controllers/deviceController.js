@@ -37,7 +37,7 @@ const createDevice = async (req, res) => {
 // READ ALL
 const getDevices = async (req, res) => {
   try {
-    const devices = await getDocs(collection(db, "devices"));
+    const devices = await getDocs(db.collection("devices"));
     const deviceArray = [];
 
     if (devices.empty) {

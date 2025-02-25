@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 const firebaseAdmin = require("firebase-admin");
 require("dotenv").config();
 
@@ -34,8 +33,6 @@ try {
     credential: firebaseAdmin.credential.cert(serviceAccount),
     databaseURL: `https://${serviceAccount.projectId}.firebaseapp.com`,
   });
-
-  const app = initializeApp(firebaseConfig);
 
   // Eventually replace this with some other logger
   console.log("[FIREBASE] Admin SDK initialized successfully");
