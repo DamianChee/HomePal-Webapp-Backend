@@ -37,8 +37,8 @@ const createDevice = async (req, res) => {
 // READ ALL
 const getDevices = async (req, res) => {
   try {
-    const devicesRef = collection(db, "devices");
-    const devices = await getDocs(devicesRef);
+    const devicesRef = db.collection("devices");
+    const devices = await devicesRef.get();
 
     if (devices.empty) {
       return res.status(404).send("No Devices found");
