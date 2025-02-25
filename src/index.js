@@ -32,7 +32,7 @@ try {
   });
 
   app.use("/api", status); // For checking connection status
-  // app.use("/devices", devices); // For getting back devices
+  app.use("/devices", devices); // For getting back devices
 } catch (error) {
   console.error("[BACKEND] Initialization failed:", error.message);
   process.exit(1);

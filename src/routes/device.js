@@ -12,4 +12,4 @@ router.get("/", getDevices);
 router.post("/new", createDevice);
 router.get("/:id", getDevice);
 
-export default router;
+module.exports = router;

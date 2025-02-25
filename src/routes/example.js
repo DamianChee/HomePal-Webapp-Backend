@@ -16,4 +16,4 @@ router.get("/:id", getExample);
 router.put("/:id", updateExample);
 router.delete("/:id", deleteExample);
 
-export default router;
+module.exports = router;
