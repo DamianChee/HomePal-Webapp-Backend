@@ -4,7 +4,7 @@ const {
   createDevice,
   getDevice,
   getDevices,
-} = require("../controllers/deviceController.js");
+} = require("../controllers/deviceController");
 
 const router = express.Router();
 
