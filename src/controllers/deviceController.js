@@ -11,8 +11,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+const { firebaseAdmin } = require("../config/firebase");
+
 // I'll need to wrap this in a try-catch at some point
-const db = getFirestore(firebaseApp);
+const db = firebaseAdmin.firestore();
 
 /**
  * I'm using the Web Modular API methods below found on the Firebase
