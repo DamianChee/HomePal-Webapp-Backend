@@ -1,4 +1,4 @@
-import { getFirestore } from "firebase/firestore";
+import { firebaseAdmin } from "../config/firebase.js";
 import Device from "../models/deviceModel.js";
 import {
   collection,
@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 
 // I'll need to wrap this in a try-catch at some point
-const db = getFirestore(app);
+const db = firebaseAdmin.firestore();
 
 /**
  * I'm using the Web Modular API methods below found on the Firebase
@@ -24,7 +24,7 @@ const db = getFirestore(app);
 const createDevice = async (req, res) => {
   try {
     const data = req.body;
-    await addDoc(collection(db, "devices"), data);
+    await addDoc(db.collection("devices"), data);
     res.status(200).send("Device created successfully");
   } catch (error) {
     res.status(400).send(error.message);
