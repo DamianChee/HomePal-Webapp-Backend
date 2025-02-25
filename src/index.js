@@ -33,6 +33,16 @@ try {
 
   app.use("/api", status); // For checking connection status
   app.use("/devices", devices); // For getting back devices
+
+  // Serve frontend static files
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../../frontend/build")));
+
+    // Handle all other routes in production
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
+    });
+  }
 } catch (error) {
   console.error("[BACKEND] Initialization failed:", error.message);
   process.exit(1);
