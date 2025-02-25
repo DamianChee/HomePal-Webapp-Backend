@@ -21,7 +21,7 @@ const db = admin.firestore();
  */
 
 // CREATE
-export const createDevice = async (req, res, next) => {
+const createDevice = async (req, res) => {
   try {
     const data = req.body;
     await addDoc(collection(db, "devices"), data);
@@ -32,7 +32,7 @@ export const createDevice = async (req, res, next) => {
 };
 
 // READ ALL
-export const getDevices = async (req, res, next) => {
+const getDevices = async (req, res) => {
   try {
     const devices = await getDocs(collection(db, "devices"));
     const deviceArray = [];
@@ -61,7 +61,7 @@ export const getDevices = async (req, res, next) => {
 };
 
 // READ ONE
-export const getDevice = async (req, res, next) => {
+const getDevice = async (req, res) => {
   try {
     const id = req.params.deviceId;
     const device = doc(db, "devices", id);
@@ -81,7 +81,7 @@ export const getDevice = async (req, res, next) => {
 // - Damian
 
 // // UPDATE
-// export const updateExample = async (req, res, next) => {
+// const updateExample = async (req, res) => {
 //   try {
 //     const id = req.params.id;
 //     const data = req.body;
@@ -94,7 +94,7 @@ export const getDevice = async (req, res, next) => {
 // };
 
 // // DELETE
-// export const deleteExample = async (req, res, next) => {
+// const deleteExample = async (req, res) => {
 //   try {
 //     const id = req.params.id;
 //     await deleteDoc(doc(db, "devices", id));
