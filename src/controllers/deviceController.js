@@ -37,29 +37,22 @@ const createDevice = async (req, res) => {
 // READ ALL
 const getDevices = async (req, res) => {
   try {
-    const devices = await getDocs(db.collection("devices"));
-    const deviceArray = [];
+    const devicesRef = collection(db, "devices");
+    const devices = await getDocs(devicesRef);
 
     if (devices.empty) {
-      res.status(400).send("No Devices found");
-    } else {
-      devices.forEach((doc) => {
-        const device = new Device(
-          doc.id,
-          doc.data().deviceId,
-          doc.data().bedId,
-          doc.data().deviceNumber,
-          doc.data().lastMaintenance,
-          doc.data().status,
-          doc.data().typetype
-        );
-        deviceArray.push(device);
-      });
-
-      res.status(200).send(deviceArray);
+      return res.status(404).send("No Devices found");
     }
+
+    const deviceArray = devices.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json(deviceArray);
   } catch (error) {
-    res.status(400).send(error.message);
+    console.error("Error fetching devices:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
