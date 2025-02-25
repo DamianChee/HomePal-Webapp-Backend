@@ -3,9 +3,6 @@ const path = require("path");
 const cors = require("cors");
 const { verifyConnection } = require("./config/firebase");
 
-const status = require("./routes/status");
-const devices = require("./routes/device");
-
 const app = express();
 console.log("[BACKEND] Starting server initialization...");
 
@@ -25,6 +22,9 @@ try {
 
   app.use(cors());
   app.use(express.json());
+
+  const status = require("./routes/status");
+  const devices = require("./routes/device");
 
   // This is to display when deployed on vercel to know the server is running
   app.get("/", (req, res) => {
