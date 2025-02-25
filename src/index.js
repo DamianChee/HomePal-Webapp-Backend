@@ -24,7 +24,7 @@ try {
   app.use(express.json());
 
   const status = require("./routes/status");
-  const devices = require("./routes/device");
+  // const devices = require("./routes/device");
 
   // This is to display when deployed on vercel to know the server is running
   app.get("/", (req, res) => {
@@ -32,7 +32,7 @@ try {
   });
 
   app.use("/api", status); // For checking connection status
-  app.use("/devices", devices); // For getting back devices
+  // app.use("/devices", devices); // For getting back devices
 
   // Serve frontend static files
   if (process.env.NODE_ENV === "production") {
