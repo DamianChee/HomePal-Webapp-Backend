@@ -49,7 +49,7 @@ const getDevices = async (req, res) => {
       ...doc.data(),
     }));
 
-    res.status(200).json(deviceArray);
+    res.status(200).send(deviceArray);
   } catch (error) {
     console.error("Error fetching devices:", error);
     res.status(500).send("Internal Server Error");
