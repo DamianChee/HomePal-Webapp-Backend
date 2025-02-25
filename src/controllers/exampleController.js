@@ -1,4 +1,4 @@
-import { admin } from "../config/firebase.js";
+import { getFirestore } from "firebase/firestore";
 import Example from "../models/exampleModel.js";
 import {
   collection,
@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 
 // I'll need to wrap this in a try-catch at some point
-const db = admin.firestore();
+const db = getFirestore(app);
 
 /**
  * I'm using the Web Modular API methods below found on the Firebase

@@ -44,7 +44,7 @@ try {
   };
 
   // Export admin instance
-  module.exports.admin = firebaseAdmin;
+  module.exports.firebaseAdmin = firebaseAdmin;
 } catch (error) {
   console.error("[FIREBASE] Initialization failed:", error.message);
   throw error;
