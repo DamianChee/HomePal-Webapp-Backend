@@ -1,4 +1,4 @@
-import { admin } from "../firebase.js";
+import { admin } from "../config/firebase.js";
 import Device from "../models/deviceModel.js";
 import {
   collection,

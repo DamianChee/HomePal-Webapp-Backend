@@ -1,4 +1,4 @@
-import { admin } from "../firebase.js";
+import { admin } from "../config/firebase.js";
 import Example from "../models/exampleModel.js";
 import {
   collection,
