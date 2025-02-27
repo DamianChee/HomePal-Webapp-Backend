@@ -27,8 +27,15 @@ const db = firebaseAdmin.firestore();
 const createDevice = async (req, res) => {
   try {
     const data = req.body;
-    await addDoc(collection(db, "devices"), data);
-    res.status(200).send("Device created successfully");
+
+    // Sanity checks
+    if (!data.id) throw new Error("req sent in has no device ID/Name!");
+    const devicesRef = db.collection("devices");
+    const response = await devicesRef.doc(data.id).set(data);
+
+    res
+      .status(200)
+      .send({ message: "Device created successfully", response: response });
   } catch (error) {
     res.status(400).send(error.message);
   }
