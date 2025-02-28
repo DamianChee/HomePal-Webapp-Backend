@@ -66,9 +66,9 @@ function initializeFirebaseAdmin() {
 module.exports = {
   admin: () => {
     try {
-      const admin = initializeFirebaseAdmin();
+      const firebaseAdmin = initializeFirebaseAdmin();
 
-      return admin;
+      return firebaseAdmin;
     } catch (error) {
       console.error("[FIREBASE] Connection verification failed:", error);
     }
