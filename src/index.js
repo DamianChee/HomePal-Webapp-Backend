@@ -32,7 +32,6 @@ try {
   app.use("/devices", devices); // For getting back devices
 
   console.log("[index.js] Server initialization completed!");
-  module.exports;
 } catch (error) {
   console.error("[index.js] Initialization failed:", error.message);
   process.exit(1);
