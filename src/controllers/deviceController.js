@@ -1,26 +1,11 @@
-import { firebaseApp } from "../config/firebase.js";
-import { getFirestore } from "firebase/firestore";
-import Device from "../models/deviceModel.js";
-import {
-  collection,
-  doc,
-  addDoc,
-  getDoc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
-
-const { firebaseAdmin } = require("../config/firebase");
-
-// I'll need to wrap this in a try-catch at some point
-const db = firebaseAdmin.firestore();
+import { doc, getDoc } from "firebase/firestore";
+const { db } = require("../config/firebase");
 
 /**
- * I'm using the Web Modular API methods below found on the Firebase
+ * I'm using the Node.js methods below found on the Firebase
  * Documentation because of readability but since the backend runs on Node.js
  * then perhaps some consistency might be better
- * https://firebase.google.com/docs/firestore/manage-data/add-data
+ * https://firebase.google.com/docs/firestore/manage-data/add-data#node.js_1
  */
 
 // CREATE
