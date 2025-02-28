@@ -64,7 +64,7 @@ function initializeFirebaseAdmin() {
 
 // Export functions to stuff
 module.exports = {
-  admin: () => {
+  getAdmin: () => {
     try {
       const firebaseAdmin = initializeFirebaseAdmin();
 
@@ -73,7 +73,7 @@ module.exports = {
       console.error("[FIREBASE] Connection verification failed:", error);
     }
   },
-  db: () => {
+  getDB: () => {
     try {
       const db = initializeFirebaseAdmin().firestore();
 
@@ -82,7 +82,7 @@ module.exports = {
       console.error("[db] Firestore failed:", error);
     }
   },
-  auth: () => {
+  getAuth: () => {
     try {
       const db = initializeFirebaseAdmin().auth();
 
@@ -91,7 +91,7 @@ module.exports = {
       console.error("[auth] Authentication failed:", error);
     }
   },
-  storage: () => {
+  getStorage: () => {
     try {
       const db = initializeFirebaseAdmin().storage();
 
