@@ -31,6 +31,9 @@ try {
   app.use("/api", status); // For checking connection status
   app.use("/devices", devices); // For getting back devices
 
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
   console.log("[index.js] Server initialization completed!");
 } catch (error) {
   console.error("[index.js] Initialization failed:", error.message);
