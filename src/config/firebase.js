@@ -41,7 +41,7 @@ function initializeFirebaseAdmin() {
      *     - Manage database security rules
      *     ! Not needed if you only use Firebase Authentication
      */
-    if (admin.apps.length === 0) {
+    if (firebaseAdmin.apps.length === 0) {
       firebaseAdmin.initializeApp({
         credential: firebaseAdmin.credential.cert(serviceAccount),
         storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
