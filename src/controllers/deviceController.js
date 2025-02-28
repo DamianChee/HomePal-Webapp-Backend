@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-const { db } = require("../config/firebase");
+const { getDB } = require("../config/firebase");
 
 /**
  * I'm using the Node.js methods below found on the Firebase
@@ -7,6 +7,8 @@ const { db } = require("../config/firebase");
  * then perhaps some consistency might be better
  * https://firebase.google.com/docs/firestore/manage-data/add-data#node.js_1
  */
+
+const db = getDB();
 
 // CREATE
 const createDevice = async (req, res) => {
