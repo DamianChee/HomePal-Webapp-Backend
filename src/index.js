@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 
 // Import verifyConnection function from config/firebase.js
-const { admin } = require("./config/firebase");
+const { getAdmin } = require("./config/firebase");
 
 // Routers
 const status = require("./routes/status");
@@ -14,7 +14,7 @@ try {
   console.log("[index.js] Starting server initialization...");
 
   // Initialize Firebase Admin SDK
-  const firebaseAdmin = admin();
+  const firebaseAdmin = getAdmin();
 
   // Create Express application instance
   const app = express();
