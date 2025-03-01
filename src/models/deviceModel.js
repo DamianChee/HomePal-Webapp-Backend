@@ -1,6 +1,15 @@
 class Device {
-  constructor(deviceId, bedId, deviceNumber, lastMaintenance, status, type) {
+  constructor(
+    deviceId,
+    createdAt,
+    bedId,
+    deviceNumber,
+    lastMaintenance,
+    status,
+    type
+  ) {
     this.deviceId = deviceId;
+    this.createdAt = createdAt;
     this.bedId = bedId;
     this.deviceNumber = deviceNumber;
     this.lastMaintenance = lastMaintenance;
