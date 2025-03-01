@@ -2,11 +2,18 @@
 
 API Endpoints
 
-## Status
+# Description
 
-| Method | URL        | Description                                        |
-| ------ | ---------- | -------------------------------------------------- |
-| `GET`  | `/status/` | Retrieve current status of connection to firebase. |
+You can add the following API endpoints to the URL: https://homepal-webapp-backend.vercel.app/ to see the results.
+
+For example: https://homepal-webapp-backend.vercel.app/api/status/
+For example: https://homepal-webapp-backend.vercel.app/beds/
+
+## API & Status
+
+| Method | URL            | Description                                        |
+| ------ | -------------- | -------------------------------------------------- |
+| `GET`  | `/api/status/` | Retrieve current status of connection to firebase. |
 
 ## Beds
 
