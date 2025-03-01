@@ -12,6 +12,7 @@ const devices = require("./routers/deviceRoute");
 const beds = require("./routers/bedRoute");
 const events = require("./routers/eventRoute");
 const facilities = require("./routers/facilityRoute");
+const organizations = require("./routers/organizationRoute");
 
 try {
   console.log("[index.js] Starting server initialization...");
@@ -37,6 +38,7 @@ try {
   app.use("/beds", beds); // For beds
   app.use("/events", events); // For events
   app.use("/facilities", facilities); // For facilities
+  app.use("/organizations", organizations); // For organizations
 
   // Start up server on specified port OR default 5000
   const PORT = process.env.PORT || 5000;
