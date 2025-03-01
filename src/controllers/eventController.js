@@ -111,7 +111,36 @@ const getEventsByHandled = async (req, res) => {
 
     // You have to use .empty to check if there are any results returned
     if (events.empty) {
-      return res.status(404).send(`There are no ${status} devices!`);
+      return res
+        .status(404)
+        .send(`There are no ${handled ? "handled" : "unhandled"} events!`);
+    }
+
+    // Use forEach to loop through the returned query snapshot and push into
+    // an array for my own return and sending
+    const eventsArray = [];
+    events.forEach((doc) => {
+      eventsArray.push(doc.data());
+      console.log(doc.id, "=>", doc.data());
+    });
+    res.status(200).send(eventsArray);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(400).send(error.message);
+  }
+};
+
+// FIND ALL EVENTS BY HANDLED (true/false)
+const getEventsByAction = async (req, res) => {
+  try {
+    const action = req.params.action;
+    // This returns a firebase query snapshot
+    const eventsRef = db.collection("events").where("action", "==", action);
+    const events = await eventsRef.get();
+
+    // You have to use .empty to check if there are any results returned
+    if (events.empty) {
+      return res.status(404).send(`There are no ${action} events!`);
     }
 
     // Use forEach to loop through the returned query snapshot and push into
@@ -134,4 +163,5 @@ module.exports = {
   getEvents,
   getEventsByDeviceId,
   getEventsByHandled,
+  getEventsByAction,
 };
