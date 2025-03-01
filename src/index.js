@@ -9,6 +9,7 @@ const { getAdmin } = require("./config/firebase");
 // Routers
 const status = require("./routers/statusRoute");
 const devices = require("./routers/deviceRoute");
+const beds = require("./routers/bedRoute");
 
 try {
   console.log("[index.js] Starting server initialization...");
@@ -29,7 +30,8 @@ try {
   });
 
   app.use("/api", status); // For checking connection status
-  app.use("/devices", devices); // For getting back devices
+  app.use("/devices", devices); // For devices
+  app.use("/beds", beds); // For beds
 
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
