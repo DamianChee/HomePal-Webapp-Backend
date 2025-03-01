@@ -54,11 +54,11 @@ const getDevices = async (req, res) => {
 const getDevice = async (req, res) => {
   try {
     const id = req.params.deviceId;
-    const device = doc(db, "devices", id);
-    const docSnap = await getDoc(device);
+    const deviceRef = db.collection("devices").doc(id);
+    const device = await deviceRef.get();
 
-    if (docSnap.exists()) {
-      res.status(200).send(docSnap.data());
+    if (device.exists()) {
+      res.status(200).send(device.data());
     } else {
       res.status(404).send("Example not found");
     }
