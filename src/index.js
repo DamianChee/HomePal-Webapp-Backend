@@ -7,8 +7,8 @@ const cors = require("cors");
 const { getAdmin } = require("./config/firebase");
 
 // Routers
-const status = require("./routes/status");
-const devices = require("./routes/device");
+const status = require("./routers/status");
+const devices = require("./routers/device");
 
 try {
   console.log("[index.js] Starting server initialization...");
