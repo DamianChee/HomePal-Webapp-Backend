@@ -28,7 +28,7 @@ const createEvent = async (req, res) => {
   }
 };
 
-// READ ALL DEVICES
+// READ ALL EVENTS
 const getEvents = async (req, res) => {
   try {
     // This returns a firebase query snapshot
@@ -54,7 +54,7 @@ const getEvents = async (req, res) => {
   }
 };
 
-// READ ONE DEVICE
+// READ ONE EVENT
 const getEvent = async (req, res) => {
   try {
     const id = req.params.eventId;
@@ -73,7 +73,7 @@ const getEvent = async (req, res) => {
   }
 };
 
-// FIND ALL EVENTS BY HANDLED (true/false)
+// FIND ALL EVENTS BY DEVICE ID
 const getEventsByDeviceId = async (req, res) => {
   try {
     const deviceId = req.params.deviceId;
@@ -130,7 +130,7 @@ const getEventsByHandled = async (req, res) => {
   }
 };
 
-// FIND ALL EVENTS BY HANDLED (true/false)
+// FIND ALL EVENTS BY ACTION (true/false)
 const getEventsByAction = async (req, res) => {
   try {
     const action = req.params.action;
