@@ -60,8 +60,8 @@ const getDevice = async (req, res) => {
     const deviceRef = db.collection("devices").doc(id);
     const device = await deviceRef.get();
 
-    console.log(`DeviceRef: ${deviceRef}`);
-    console.log(`Device: ${device}`);
+    console.log(`DeviceRef: ${JSON.stringify(deviceRef)}`);
+    console.log(`Device: ${JSON.stringify(device)}`);
 
     if (device.exists) {
       res.status(200).send(device.data());
