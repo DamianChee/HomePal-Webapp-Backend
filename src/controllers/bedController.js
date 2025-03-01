@@ -165,7 +165,7 @@ const getBedsByWardNumber = async (req, res) => {
     const beds = await bedsRef.get();
 
     if (beds.empty) {
-      return res.status(404).send(`There are no beds in ${wardNumber}!`);
+      return res.status(404).send(`There are no beds in ward ${wardNumber}!`);
     }
 
     // Use forEach to loop through the returned query snapshot and push into
