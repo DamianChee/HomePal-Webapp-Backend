@@ -67,7 +67,7 @@ const getPatient = async (req, res) => {
     // You have to use exists when using collection().doc() as it returns only
     // ONE "object" as opposed to .empty where it's potentially more than one
     if (!patient.exists) res.status(404).send("Patient not found");
-    res.status(200).send(patients.data());
+    res.status(200).send(patient.data());
   } catch (error) {
     console.error("Error fetching patient:", error);
     res.status(400).send(error.message);
