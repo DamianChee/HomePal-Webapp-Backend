@@ -4,4 +4,4 @@ function parseBoolean(value) {
   return String(value).toLowerCase() === "true";
 }
 
-module.exports = formatDate;
+module.exports = parseBoolean;
