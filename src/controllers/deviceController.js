@@ -57,10 +57,10 @@ const getDevice = async (req, res) => {
     const deviceRef = db.collection("devices").doc(id);
     const device = await deviceRef.get();
 
-    if (device.exists()) {
+    if (device.exists) {
       res.status(200).send(device.data());
     } else {
-      res.status(404).send("Example not found");
+      res.status(404).send("Device not found");
     }
   } catch (error) {
     res.status(400).send(error.message);
