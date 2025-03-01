@@ -74,6 +74,14 @@ API Endpoints
 | `GET`  | `/patients/attemptedbedexitalerts/true`     | Retrieve all patients with Attempted Bed Exit Alerts turned on. |
 | `GET`  | `/patients/bedsidefallalert/true`           | Retrieve all patients with Bedside Fall Alert turned on.        |
 
+## Wards
+
+| Method | URL                        | Description                                     |
+| ------ | -------------------------- | ----------------------------------------------- |
+| `GET`  | `/wards/`                  | Retrieve all wards.                             |
+| `GET`  | `/wards/id/FAC001-WRD001`  | Retrieve wards with id: FAC001-WRD001.          |
+| `GET`  | `/wards/facilityid/FAC001` | Retrieve all wards in facility with id: FAC001. |
+
 ## Acknowledgements
 
 - [HomePalSG](https://www.homepalsg.com/)
