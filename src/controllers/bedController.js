@@ -1,5 +1,5 @@
 const { getDB } = require("../config/firebase");
-const { parseBoolean } = require("../utils/parseBoolean");
+const parseBoolean = require("../utils/parseBoolean");
 
 /**
  * I'm using the Node.js methods below found on the Firebase
