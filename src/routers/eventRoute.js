@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", getEvents);
 router.post("/new", createEvent);
-router.get("/id/:deviceId", getEvent);
+router.get("/id/:eventId", getEvent);
 router.get("/deviceid/:deviceId", getEventsByDeviceId);
 router.get("/handled/:handled", getEventsByHandled);
 
