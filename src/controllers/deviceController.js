@@ -71,11 +71,14 @@ const getDevice = async (req, res) => {
 const getDevicesByStatus = async (req, res) => {
   try {
     const status = req.params.status;
+    // This returns a firebase query snapshot
     const devicesRef = db.collection("devices").where("status", "==", status);
     const devices = await devicesRef.get();
 
+    // You have to use .empty to check if there are any results returned
     if (!devices.empty) {
-      console.log(devices); // I just want to see what it gives me back
+      // Use forEach to loop through the returned query snapshot and push into
+      // an array for my own return and sending
       const devicesArray = [];
       devices.forEach((doc) => {
         devicesArray.push(doc.data());
