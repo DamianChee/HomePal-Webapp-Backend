@@ -1,4 +1,3 @@
-import { doc, getDoc } from "firebase/firestore";
 const { getDB } = require("../config/firebase");
 
 /**
@@ -28,7 +27,7 @@ const createDevice = async (req, res) => {
   }
 };
 
-// READ ALL
+// READ ALL DEVICES
 const getDevices = async (req, res) => {
   try {
     const devicesRef = db.collection("devices");
@@ -50,7 +49,7 @@ const getDevices = async (req, res) => {
   }
 };
 
-// READ ONE
+// READ ONE DEVICE
 const getDevice = async (req, res) => {
   try {
     const id = req.params.deviceId;
@@ -67,7 +66,7 @@ const getDevice = async (req, res) => {
   }
 };
 
-// Find all devices by status
+// FIND ALL DEVICES BY STATUS (online/offline)
 const getDevicesByStatus = async (req, res) => {
   try {
     const status = req.params.status;
