@@ -1,4 +1,5 @@
 const { getDB } = require("../config/firebase");
+const { parseBoolean } = require("../utils/parseBoolean");
 
 /**
  * I'm using the Node.js methods below found on the Firebase
@@ -74,11 +75,9 @@ const getBed = async (req, res) => {
 // FIND ALL BEDS BY ASSIGNED (true/false)
 const getBedsByAssigned = async (req, res) => {
   try {
-    const assigned = req.params.assigned;
+    const assigned = parseBoolean(req.params.assigned);
     // This returns a firebase query snapshot
-    const bedsRef = db
-      .collection("beds")
-      .where("isAssigned", "==", Boolean(assigned));
+    const bedsRef = db.collection("beds").where("isAssigned", "==", assigned);
     const beds = await bedsRef.get();
 
     if (beds.empty) {
@@ -104,11 +103,9 @@ const getBedsByAssigned = async (req, res) => {
 // FIND ALL BEDS BY OCCUPIED (true/false)
 const getBedsByOccupied = async (req, res) => {
   try {
-    const occupied = req.params.occupied;
+    const occupied = parseBoolean(req.params.occupied);
     // This returns a firebase query snapshot
-    const bedsRef = db
-      .collection("beds")
-      .where("isOccupied", "==", Boolean(occupied));
+    const bedsRef = db.collection("beds").where("isOccupied", "==", occupied);
     const beds = await bedsRef.get();
 
     if (beds.empty) {
