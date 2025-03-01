@@ -154,16 +154,18 @@ const getBedsByWardId = async (req, res) => {
   }
 };
 
-// FIND ALL DEVICES BY STATUS (online/offline)
+// FIND ALL DEVICES BY WARD NUMBER
 const getBedsByWardNumber = async (req, res) => {
   try {
-    const wardNumber = req.params.wardNumber;
+    // We have to use parseInt() because params are taken in as strings and
+    // in the firebase firestore, wardNumber is a (number) type
+    const wardNumber = parseInt(req.params.wardNumber);
     // This returns a firebase query snapshot
     const bedsRef = db.collection("beds").where("wardNumber", "==", wardNumber);
     const beds = await bedsRef.get();
 
     if (beds.empty) {
-      return res.status(404).send(`There are no bed in ${wardNumber}!`);
+      return res.status(404).send(`There are no beds in ${wardNumber}!`);
     }
 
     // Use forEach to loop through the returned query snapshot and push into
