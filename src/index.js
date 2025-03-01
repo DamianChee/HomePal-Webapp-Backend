@@ -35,8 +35,8 @@ try {
 
   // Routers
   app.use("/api", status); // For checking connection status
-  app.use("/devices", devices); // For devices
   app.use("/beds", beds); // For beds
+  app.use("/devices", devices); // For devices
   app.use("/events", events); // For events
   app.use("/facilities", facilities); // For facilities
   app.use("/organizations", organizations); // For organizations
