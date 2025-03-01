@@ -72,15 +72,13 @@ const getDevicesByStatus = async (req, res) => {
   try {
     const status = req.params.status;
     const devicesRef = db.collection("devices").where("status", "==", status);
+    const devices = await devicesRef.get();
 
-    if (!devicesRef.empty) {
-      const devices = [];
-      devicesRef.forEach((doc) => {
-        devices.push(doc.data());
-      });
-      res.status(200).send(devices);
+    if (!devices.empty) {
+      console.log(devices); // I just want to see what it gives me back
+      res.status(200).send(devices.data());
     } else {
-      res.status(404).send("Devices not found");
+      res.status(404).send(`There are no ${status} devices!`);
     }
   } catch (error) {
     res.status(400).send(error.message);
