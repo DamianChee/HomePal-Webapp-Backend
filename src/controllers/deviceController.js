@@ -37,12 +37,15 @@ const getDevices = async (req, res) => {
       return res.status(404).send("No Devices found");
     }
 
-    const deviceArray = devices.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    // Use forEach to loop through the returned query snapshot and push into
+    // an array for my own return and sending
+    const devicesArray = [];
+    devices.forEach((doc) => {
+      devicesArray.push(doc.data());
+      console.log(doc.id, "=>", doc.data());
+    });
 
-    res.status(200).send(deviceArray);
+    res.status(200).send(devicesArray);
   } catch (error) {
     console.error("Error fetching devices:", error);
     res.status(500).send("Internal Server Error");
@@ -75,18 +78,18 @@ const getDevicesByStatus = async (req, res) => {
     const devices = await devicesRef.get();
 
     // You have to use .empty to check if there are any results returned
-    if (!devices.empty) {
-      // Use forEach to loop through the returned query snapshot and push into
-      // an array for my own return and sending
-      const devicesArray = [];
-      devices.forEach((doc) => {
-        devicesArray.push(doc.data());
-        console.log(doc.id, "=>", doc.data());
-      });
-      res.status(200).send(devicesArray);
-    } else {
-      res.status(404).send(`There are no ${status} devices!`);
+    if (devices.empty) {
+      return res.status(404).send(`There are no ${status} devices!`);
     }
+
+    // Use forEach to loop through the returned query snapshot and push into
+    // an array for my own return and sending
+    const devicesArray = [];
+    devices.forEach((doc) => {
+      devicesArray.push(doc.data());
+      console.log(doc.id, "=>", doc.data());
+    });
+    res.status(200).send(devicesArray);
   } catch (error) {
     res.status(400).send(error.message);
   }
