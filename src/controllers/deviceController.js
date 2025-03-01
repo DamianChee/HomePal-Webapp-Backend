@@ -67,6 +67,26 @@ const getDevice = async (req, res) => {
   }
 };
 
+// READ ONE
+const getDevicesByStatus = async (req, res) => {
+  try {
+    const status = req.params.status;
+    const devicesRef = db.collection("devices").where("status", "==", status);
+
+    if (!devicesRef.empty) {
+      const devices = [];
+      devicesRef.forEach((doc) => {
+        devices.push(doc.data());
+      });
+      res.status(200).send(devices);
+    } else {
+      res.status(404).send("Devices not found");
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 // Don't use or make these first to ensure I don't mess up the database
 // - Damian
 
@@ -98,4 +118,5 @@ module.exports = {
   createDevice,
   getDevice,
   getDevices,
+  getDevicesByStatus,
 };
