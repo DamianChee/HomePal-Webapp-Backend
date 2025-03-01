@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get("/", getDevices);
 router.post("/new", createDevice);
-router.get("/:id", getDevice);
+router.get("/:deviceId", getDevice);
 
 module.exports = router;
