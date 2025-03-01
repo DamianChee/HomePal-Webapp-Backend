@@ -67,7 +67,7 @@ const getDevice = async (req, res) => {
   }
 };
 
-// READ ONE
+// Find all devices by status
 const getDevicesByStatus = async (req, res) => {
   try {
     const status = req.params.status;
@@ -76,7 +76,12 @@ const getDevicesByStatus = async (req, res) => {
 
     if (!devices.empty) {
       console.log(devices); // I just want to see what it gives me back
-      res.status(200).send(devices.data());
+      const devicesArray = [];
+      devices.forEach((doc) => {
+        devicesArray.push(doc.data());
+        console.log(doc.id, "=>", doc.data());
+      });
+      res.status(200).send(devicesArray);
     } else {
       res.status(404).send(`There are no ${status} devices!`);
     }
