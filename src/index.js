@@ -10,6 +10,7 @@ const { getAdmin } = require("./config/firebase");
 const status = require("./routers/statusRoute");
 const devices = require("./routers/deviceRoute");
 const beds = require("./routers/bedRoute");
+const events = require("./routers/eventRoute");
 
 try {
   console.log("[index.js] Starting server initialization...");
@@ -29,10 +30,13 @@ try {
     res.send("Express Backend is Running");
   });
 
+  // Routers
   app.use("/api", status); // For checking connection status
   app.use("/devices", devices); // For devices
   app.use("/beds", beds); // For beds
+  app.use("/events", events); // For events
 
+  // Start up server on specified port OR default 5000
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
