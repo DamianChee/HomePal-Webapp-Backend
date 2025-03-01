@@ -30,6 +30,7 @@ const createDevice = async (req, res) => {
 // READ ALL DEVICES
 const getDevices = async (req, res) => {
   try {
+    // This returns a firebase query snapshot
     const devicesRef = db.collection("devices");
     const devices = await devicesRef.get();
 
@@ -58,6 +59,9 @@ const getDevice = async (req, res) => {
     const id = req.params.deviceId;
     const deviceRef = db.collection("devices").doc(id);
     const device = await deviceRef.get();
+
+    console.log(`DeviceRef: ${deviceRef}`);
+    console.log(`Device: ${device}`);
 
     if (device.exists) {
       res.status(200).send(device.data());
