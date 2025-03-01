@@ -57,11 +57,10 @@ const getDevices = async (req, res) => {
 const getDevice = async (req, res) => {
   try {
     const id = req.params.deviceId;
+    // returns firestore + path
     const deviceRef = db.collection("devices").doc(id);
+    // returns some sort of object with data inside private _fieldsProto
     const device = await deviceRef.get();
-
-    console.log(`DeviceRef: ${JSON.stringify(deviceRef)}`);
-    console.log(`Device: ${JSON.stringify(device)}`);
 
     if (device.exists) {
       res.status(200).send(device.data());
