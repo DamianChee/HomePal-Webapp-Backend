@@ -73,7 +73,7 @@ const getFacility = async (req, res) => {
   }
 };
 
-// FIND ALL FACILITIES BY NAME (true/false)
+// FIND ALL FACILITIES BY NAME
 const getFacilitiesByName = async (req, res) => {
   try {
     const name = req.params.name;
@@ -103,7 +103,7 @@ const getFacilitiesByName = async (req, res) => {
   }
 };
 
-// FIND ALL FACILITIES BY ORGANIZATION ID (true/false)
+// FIND ALL FACILITIES BY ORGANIZATION ID
 const getFacilitiesByOrganizationId = async (req, res) => {
   try {
     const id = req.params.organizationId;
@@ -134,7 +134,7 @@ const getFacilitiesByOrganizationId = async (req, res) => {
   }
 };
 
-// FIND ALL FACILITIES BY TYPE (true/false)
+// FIND ALL FACILITIES BY TYPE
 const getFacilitiesByType = async (req, res) => {
   try {
     const type = req.params.type;
@@ -163,7 +163,7 @@ const getFacilitiesByType = async (req, res) => {
   }
 };
 
-// FIND ALL EVENTS BY HANDLED (true/false)
+// FIND ALL FACILITIES BY CONTACT INFO
 const getFacilitiesByContactInfo = async (req, res) => {
   try {
     const contact = req.params.contact;
