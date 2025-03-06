@@ -18,7 +18,7 @@ router.get("/status", async (req, res) => {
     };
 
     console.log("[BACKEND] Status check successful");
-    res.status(200).json({ status: "ok", msg: "API online", data });
+    res.status(200).json(data);
   } catch (error) {
     console.error("[BACKEND] Status check failed:", error.message);
     res.status(500).json({
