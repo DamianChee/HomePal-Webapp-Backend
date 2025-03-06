@@ -22,7 +22,7 @@ const createEvent = async (req, res) => {
 
     res.status(200).json({ status: "ok", msg: "Event Created", response });
   } catch (error) {
-    res.status(400).json({ status: "error", msg: error.message });
+    res.status(500).json({ status: "error", msg: error.message });
   }
 };
 
@@ -51,7 +51,7 @@ const getEvents = async (req, res) => {
       response: eventsArray,
     });
   } catch (error) {
-    res.status(500).send({ status: "error", msg: error.message });
+    res.status(500).json({ status: "error", msg: error.message });
   }
 };
 
@@ -74,7 +74,7 @@ const getEvent = async (req, res) => {
       response: event.data(),
     });
   } catch (error) {
-    res.status(500).send({ status: "error", msg: error.message });
+    res.status(500).json({ status: "error", msg: error.message });
   }
 };
 
@@ -108,7 +108,7 @@ const getEventsByDeviceId = async (req, res) => {
       response: eventsArray,
     });
   } catch (error) {
-    res.status(500).send({ status: "error", msg: error.message });
+    res.status(500).json({ status: "error", msg: error.message });
   }
 };
 
@@ -141,7 +141,7 @@ const getEventsByHandled = async (req, res) => {
       response: eventsArray,
     });
   } catch (error) {
-    res.status(500).send({ status: "error", msg: error.message });
+    res.status(500).json({ status: "error", msg: error.message });
   }
 };
 
@@ -174,7 +174,91 @@ const getEventsByAction = async (req, res) => {
       response: eventsArray,
     });
   } catch (error) {
-    res.status(500).send({ status: "error", msg: error.message });
+    res.status(500).json({ status: "error", msg: error.message });
+  }
+};
+
+const getLatestEvents = async (req, res) => {
+  try {
+    // Get the snapshot
+    const eventsRef = db.collection("events").orderBy("time", "desc").limit(40);
+    const events = await eventsRef.get();
+
+    // Handle empty result case
+    if (events.empty) {
+      return res.status(404).json({
+        status: "error",
+        msg: "There are no events!",
+      });
+    }
+
+    // Convert snapshot to array
+    const eventsArray = [];
+    events.forEach((doc) => {
+      eventsArray.push(doc.data());
+      console.log(doc.id, "=>", doc.data());
+    });
+
+    // Return successful response
+    res.status(200).json({
+      status: "ok",
+      msg: "Returning latest events",
+      response: eventsArray,
+    });
+  } catch (error) {
+    res.status(500).json({ status: "error", msg: error.message });
+  }
+};
+
+const getRecentEvents = async (req, res) => {
+  try {
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now);
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    // Parse stored date format
+    const parseDate = (dateString) => {
+      const dateParts = dateString.match(
+        /(\d{2}) (\w+ \d{4}) (\d{2}:\d{2}:\d{2}) (UTC[\+\-]\d+)/
+      );
+      if (!dateParts) {
+        throw new Error("Invalid date format");
+      }
+      return new Date(dateString);
+    };
+
+    const eventsRef = db
+      .collection("events")
+      .where("time", ">=", thirtyDaysAgo.toISOString())
+      .orderBy("time", "desc")
+      .limit(40);
+
+    const events = await eventsRef.get();
+
+    if (events.empty) {
+      return res.status(404).json({
+        status: "error",
+        msg: "No events found in the specified timeframe",
+      });
+    }
+
+    const eventsArray = events.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json({
+      status: "ok",
+      msg: "Events retrieved successfully",
+      count: eventsArray.length,
+      response: eventsArray,
+    });
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(error.status || 500).json({
+      status: "error",
+      msg: error.message,
+    });
   }
 };
 
@@ -185,4 +269,6 @@ module.exports = {
   getEventsByDeviceId,
   getEventsByHandled,
   getEventsByAction,
+  getLatestEvents,
+  getRecentEvents,
 };
