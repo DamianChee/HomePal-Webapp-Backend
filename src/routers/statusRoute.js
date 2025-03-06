@@ -11,14 +11,14 @@ router.get("/status", async (req, res) => {
     await verifyFirebaseAdmin();
 
     // Prepare success response
-    const status = {
+    const data = {
       status: "running",
       timestamp: formatDate(),
       environment: process.env.NODE_ENV || "development",
     };
 
     console.log("[BACKEND] Status check successful");
-    res.json(status);
+    res.json({ status: "ok", msg: "dogs found", data });
   } catch (error) {
     console.error("[BACKEND] Status check failed:", error.message);
     res.status(500).json({
