@@ -224,8 +224,7 @@ const getRecentEvents = async (req, res) => {
     const eventsRef = db
       .collection("events")
       .where("time", ">=", thirtyDaysAgo)
-      .orderBy("time", "desc")
-      .limit(40);
+      .orderBy("time", "desc");
 
     const events = await eventsRef.get();
     if (events.empty) {
