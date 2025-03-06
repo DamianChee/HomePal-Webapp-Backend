@@ -195,8 +195,11 @@ const getLatestEvents = async (req, res) => {
     // Convert snapshot to array
     const eventsArray = [];
     events.forEach((doc) => {
-      eventsArray.push(doc.data());
-      console.log(doc.id, "=>", doc.data());
+      const eventData = doc.data();
+      // Format the timestamp here
+      eventData.time = formatFirebaseTimestamp(eventData.time);
+      eventsArray.push(eventData);
+      console.log(doc.id, "=>", eventData);
     });
 
     // Return successful response
@@ -245,6 +248,7 @@ const getRecentEvents = async (req, res) => {
     const eventsArray = events.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
+      time: formatFirebaseTimestamp(doc.data().time),
     }));
 
     res.status(200).json({
