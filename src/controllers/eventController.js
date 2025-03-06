@@ -20,11 +20,9 @@ const createEvent = async (req, res) => {
     const eventsRef = db.collection("events");
     const response = await eventsRef.doc(data.id).set(data);
 
-    res
-      .status(200)
-      .send({ message: "Event created successfully", response: response });
+    res.status(200).json({ status: "ok", msg: "Event Created", response });
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).json({ status: "error", msg: error.message });
   }
 };
 
@@ -36,7 +34,7 @@ const getEvents = async (req, res) => {
     const events = await eventsRef.get();
 
     if (events.empty) {
-      return res.status(404).send("No Events found");
+      return res.status(404).json({ status: "error", msg: "No Events found" });
     }
 
     // Use forEach to loop through the returned query snapshot and push into
@@ -47,10 +45,13 @@ const getEvents = async (req, res) => {
       console.log(doc.id, "=>", doc.data());
     });
 
-    res.status(200).send(eventsArray);
+    res.status(200).json({
+      status: "ok",
+      msg: "Returning all event",
+      response: eventsArray,
+    });
   } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send({ status: "error", msg: error.message });
   }
 };
 
@@ -65,11 +66,15 @@ const getEvent = async (req, res) => {
 
     // You have to use exists when using collection().doc() as it returns only
     // ONE "object" as opposed to .empty where it's potentially more than one
-    if (!event.exists) res.status(404).send("Event not found");
-    res.status(200).send(event.data());
+    if (!event.exists)
+      return res.status(404).json({ status: "error", msg: "No Events found" });
+    res.status(200).json({
+      status: "ok",
+      msg: "Returning event",
+      response: event.data(),
+    });
   } catch (error) {
-    console.error("Error fetching event:", error);
-    res.status(400).send(error.message);
+    res.status(500).send({ status: "error", msg: error.message });
   }
 };
 
@@ -84,7 +89,10 @@ const getEventsByDeviceId = async (req, res) => {
     // You have to use empty to check if there are any results returned when
     // expecting potentially more than one
     if (events.empty) {
-      return res.status(404).send(`There are no events for: ${deviceId}!`);
+      return res.status(404).json({
+        status: "error",
+        msg: `There are no events for: ${deviceId}!`,
+      });
     }
 
     // Use forEach to loop through the returned query snapshot and push into
@@ -94,10 +102,13 @@ const getEventsByDeviceId = async (req, res) => {
       eventsArray.push(doc.data());
       console.log(doc.id, "=>", doc.data());
     });
-    res.status(200).send(eventsArray);
+    res.status(200).json({
+      status: "ok",
+      msg: "Returning event",
+      response: eventsArray,
+    });
   } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(400).send(error.message);
+    res.status(500).send({ status: "error", msg: error.message });
   }
 };
 
@@ -111,9 +122,10 @@ const getEventsByHandled = async (req, res) => {
 
     // You have to use .empty to check if there are any results returned
     if (events.empty) {
-      return res
-        .status(404)
-        .send(`There are no ${handled ? "handled" : "unhandled"} events!`);
+      return res.status(404).json({
+        status: "error",
+        msg: `There are no ${handled ? "handled" : "unhandled"} events!`,
+      });
     }
 
     // Use forEach to loop through the returned query snapshot and push into
@@ -123,10 +135,13 @@ const getEventsByHandled = async (req, res) => {
       eventsArray.push(doc.data());
       console.log(doc.id, "=>", doc.data());
     });
-    res.status(200).send(eventsArray);
+    res.status(200).json({
+      status: "ok",
+      msg: "Returning event",
+      response: eventsArray,
+    });
   } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(400).send(error.message);
+    res.status(500).send({ status: "error", msg: error.message });
   }
 };
 
@@ -140,7 +155,10 @@ const getEventsByAction = async (req, res) => {
 
     // You have to use .empty to check if there are any results returned
     if (events.empty) {
-      return res.status(404).send(`There are no ${action} events!`);
+      return res.status(404).json({
+        status: "error",
+        msg: `There are no ${action} events!`,
+      });
     }
 
     // Use forEach to loop through the returned query snapshot and push into
@@ -150,10 +168,13 @@ const getEventsByAction = async (req, res) => {
       eventsArray.push(doc.data());
       console.log(doc.id, "=>", doc.data());
     });
-    res.status(200).send(eventsArray);
+    res.status(200).json({
+      status: "ok",
+      msg: "Returning event",
+      response: eventsArray,
+    });
   } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(400).send(error.message);
+    res.status(500).send({ status: "error", msg: error.message });
   }
 };
 
