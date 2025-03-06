@@ -216,29 +216,33 @@ const getLatestEvents = async (req, res) => {
 
 const getRecentEvents = async (req, res) => {
   try {
+    // Create Date objects for comparison
     const now = new Date();
     const thirtyDaysAgo = new Date(now);
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     const eventsRef = db
       .collection("events")
-      .where("time", ">=", thirtyDaysAgo.toISOString())
+      .where("time", ">=", thirtyDaysAgo)
       .orderBy("time", "desc")
       .limit(40);
 
     const events = await eventsRef.get();
-
     if (events.empty) {
       return res.status(404).json({
         status: "error",
         msg: "No events found in the specified timeframe",
+        debug: {
+          startDate: thirtyDaysAgo.toISOString(),
+          endDate: now.toISOString(),
+        },
       });
     }
 
     const eventsArray = events.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
-      time: formatFirebaseTimestamp(doc.data().time),
+      time: doc.data().time.toDate().toISOString(),
     }));
 
     res.status(200).json({
