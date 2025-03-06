@@ -1,5 +1,6 @@
 const { getDB } = require("../config/firebase");
 const parseBoolean = require("../utils/parseBoolean");
+const formatFirebaseTimestamp = require("../utils/formatFirebaseTimestamp");
 
 /**
  * I'm using the Node.js methods below found on the Firebase
@@ -218,17 +219,6 @@ const getRecentEvents = async (req, res) => {
     const now = new Date();
     const thirtyDaysAgo = new Date(now);
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    // Parse stored date format
-    const parseDate = (dateString) => {
-      const dateParts = dateString.match(
-        /(\d{2}) (\w+ \d{4}) (\d{2}:\d{2}:\d{2}) (UTC[\+\-]\d+)/
-      );
-      if (!dateParts) {
-        throw new Error("Invalid date format");
-      }
-      return new Date(dateString);
-    };
 
     const eventsRef = db
       .collection("events")
