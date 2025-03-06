@@ -21,7 +21,13 @@ const createDevice = async (req, res) => {
 
     res.status(200).send({ message: "Device created successfully", response });
   } catch (error) {
-    res.status(400).send(error.message);
+    res
+      .status(400)
+      .send({
+        status: "error",
+        msg: "Device couldn't be created",
+        response: data,
+      });
   }
 };
 
@@ -33,7 +39,7 @@ const getDevices = async (req, res) => {
     const devices = await devicesRef.get();
 
     if (devices.empty) {
-      return res.status(404).send("No Devices found");
+      return res.status(404).send({ status: "error", msg: "Device not found" });
     }
 
     // Use forEach to loop through the returned query snapshot and push into
@@ -44,7 +50,9 @@ const getDevices = async (req, res) => {
       console.log(doc.id, "=>", doc.data());
     });
 
-    res.status(200).send(devicesArray);
+    res
+      .status(200)
+      .send({ status: "ok", msg: "Return devices", response: devicesArray });
   } catch (error) {
     console.error("Error fetching devices:", error);
     res.status(500).send("Internal Server Error");
