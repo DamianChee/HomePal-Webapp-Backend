@@ -17,8 +17,7 @@ router.get("/status", async (req, res) => {
       environment: process.env.NODE_ENV || "development",
     };
 
-    console.log("[BACKEND] Status check successful");
-    res.status(200).json(data);
+    res.status(200).json({ status: "ok", msg: "API Online", data });
   } catch (error) {
     console.error("[BACKEND] Status check failed:", error.message);
     res.status(500).json({

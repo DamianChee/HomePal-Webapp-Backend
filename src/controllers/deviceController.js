@@ -19,9 +19,7 @@ const createDevice = async (req, res) => {
     const devicesRef = db.collection("devices");
     const response = await devicesRef.doc(data.id).set(data);
 
-    res
-      .status(200)
-      .send({ message: "Device created successfully", response: response });
+    res.status(200).send({ message: "Device created successfully", response });
   } catch (error) {
     res.status(400).send(error.message);
   }
