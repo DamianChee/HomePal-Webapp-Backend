@@ -218,12 +218,12 @@ const getRecentEvents = async (req, res) => {
   try {
     // Create Date objects for comparison
     const now = new Date();
-    const thirtyDaysAgo = new Date(now);
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const twoWeeksAgo = new Date(now);
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
     const eventsRef = db
       .collection("events")
-      .where("time", ">=", thirtyDaysAgo)
+      .where("time", ">=", twoWeeksAgo)
       .orderBy("time", "desc");
 
     const events = await eventsRef.get();
@@ -232,7 +232,7 @@ const getRecentEvents = async (req, res) => {
         status: "error",
         msg: "No events found in the specified timeframe",
         debug: {
-          startDate: thirtyDaysAgo.toISOString(),
+          startDate: twoWeeksAgo.toISOString(),
           endDate: now.toISOString(),
         },
       });
