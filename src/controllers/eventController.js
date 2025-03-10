@@ -17,9 +17,9 @@ const createEvent = async (req, res) => {
   try {
     const data = req.body;
 
-    if (!data.id) throw new Error("req sent in has no ID/Name!");
+    if (!data.eventId) throw new Error("req sent in has no ID/Name!");
     const eventsRef = db.collection("events");
-    const response = await eventsRef.doc(data.id).set(data);
+    const response = await eventsRef.doc(data.eventId).set(data);
 
     res.status(200).json({ status: "ok", msg: "Event Created", response });
   } catch (error) {
