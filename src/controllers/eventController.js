@@ -259,6 +259,30 @@ const getRecentEvents = async (req, res) => {
   }
 };
 
+// RP42A00002-EVT1741611637640
+const deleteEvent = async (req, res) => {
+  try {
+    const id = req.params.eventId;
+    // returns firestore + path
+    const eventRef = db.collection("events").doc(id);
+    // returns some sort of object with data inside private _fieldsProto
+    const event = await eventRef.get();
+
+    // You have to use exists when using collection().doc() as it returns only
+    // ONE "object" as opposed to .empty where it's potentially more than one
+    if (!event.exists)
+      return res.status(404).json({ status: "error", msg: "No Events found" });
+    const res = event.delete();
+    res.status(200).json({
+      status: "ok",
+      msg: "Deleted event",
+      response: event.data(),
+    });
+  } catch (error) {
+    res.status(500).json({ status: "error", msg: error.message });
+  }
+};
+
 module.exports = {
   createEvent,
   getEvent,
@@ -268,4 +292,5 @@ module.exports = {
   getEventsByAction,
   getLatestEvents,
   getRecentEvents,
+  deleteEvent,
 };
