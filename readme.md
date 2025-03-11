@@ -98,5 +98,3 @@ For example: https://homepal-webapp-backend.vercel.app/beds/
 - [Phind](https://www.phind.com/)
 - [GeeksForGeeks](https://www.geeksforgeeks.org/)
 - [Stackoverflow](https://stackoverflow.com/)
-
-test
