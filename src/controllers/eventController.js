@@ -272,7 +272,7 @@ const deleteEvent = async (req, res) => {
     // ONE "object" as opposed to .empty where it's potentially more than one
     if (!event.exists)
       return res.status(404).json({ status: "error", msg: "No Events found" });
-    const res = event.delete();
+    const res = eventRef.delete();
     res.status(200).json({
       status: "ok",
       msg: "Deleted event",
