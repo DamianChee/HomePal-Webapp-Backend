@@ -10,12 +10,5 @@
       "src": "/(.*)",
       "dest": "src/index.js"
     }
-  ],
-  "framework": null,
-  "functions": {
-    "src/index.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
