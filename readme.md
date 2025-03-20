@@ -2,6 +2,11 @@
 
 API Endpoints
 
+# How to run
+
+Download/clone the repo somewhere, open in VSCODE, open terminal and
+use "npm run start" to start a local server.
+
 # Description
 
 You can add the following API endpoints to the URL: https://homepal-webapp-backend.vercel.app/ to see the results.
