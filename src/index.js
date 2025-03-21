@@ -11,14 +11,7 @@ const { getAdmin } = require("./config/firebase");
 const socketService = require("./services/socketService");
 
 // Routers
-const status = require("./routers/statusRoute");
-const devices = require("./routers/deviceRoute");
-const beds = require("./routers/bedRoute");
 const events = require("./routers/eventRoute");
-const facilities = require("./routers/facilityRoute");
-const organizations = require("./routers/organizationRoute");
-const patients = require("./routers/patientRoute");
-const wards = require("./routers/wardRoute");
 
 try {
   console.log("[index.js] Starting server initialization...");
@@ -42,14 +35,7 @@ try {
   });
 
   // Routers
-  app.use("/api", status); // For checking connection status
-  app.use("/beds", beds); // For beds
-  app.use("/devices", devices); // For devices
   app.use("/events", events); // For events
-  app.use("/facilities", facilities); // For facilities
-  app.use("/organizations", organizations); // For organizations
-  app.use("/patients", patients); // For patients
-  app.use("/wards", wards); // For wards
 
   // Initialize WebSocket service
   socketService.initialize(server);
@@ -95,30 +81,3 @@ try {
   console.error("[index.js] Initialization failed:", error.message);
   process.exit(1);
 }
-
-// This isn't being used as I don't completely understand the code at the moment
-// function FirebaseAuthentication() {
-//   try {
-//     // Set up authentication middleware
-//     app.use(async (req, res, next) => {
-//       const authHeader = req.headers.authorization;
-//
-//       if (authHeader && authHeader.startsWith("Bearer ")) {
-//         const token = authHeader.split(" ")[1];
-//         try {
-//           const decodedToken = await admin.auth().verifyIdToken(token);
-//           req.user = decodedToken;
-//         } catch (error) {
-//           console.error("[AUTH] Token verification failed:", error.message);
-//         }
-//       }
-//
-//       next();
-//     });
-//
-//     console.log("[SERVER] Firebase authentication middleware initialized");
-//   } catch (error) {
-//     console.error("[SERVER] Firebase initialization failed:", error.message);
-//     process.exit(1); // Exit application if Firebase fails to initialize
-//   }
-// }
